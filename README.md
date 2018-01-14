@@ -6,15 +6,14 @@
 
 - R, Python 커널제공 
 - virtualenv 기반 Python 커널 제공
-- pip 인스톨시 --user 옵셥 가능 
 - TensorFlow-gpu, keras, MXNet 기본 설치(Nvidia 이미지(cuda:8.0-cudnn6, ubuntu 16.04) 기반)
 - jupyter lab과 jupyter 중 선택사용
-- jupyter 노트북 블랙테마 기본 적용(bitstream vera sans mono 폰트 적용) 
+- jupyter 노트북 블랙테마 기본 적용(bitstream vera sans mono 폰트) 
 - jupyter extention 및 테마 기본설치
 - 주피터(Python커널) 셀 내에서 R 코드 실행 설정(with rpy2) 
-- Matplotlib 한글 폰트 기본 제공(나눔코딩)
+- Matplotlib 한글 폰트 기본 제공(나눔코딩폰트)
 - seaborn, pandas, numpy 등 핵심 패키지 기본 설치
-- R 플로팅 한글 폰트 기본 제공(나눔코딩)
+- R 플로팅 한글 폰트 기본 제공(나눔코딩폰트)
 - ggplot2, data.table 등 주요 패키지 기본 설치 
 - GUID, UID 설정을 통한 마운트 디스크 권한 이슈 해결
 - KoNLPy 등 한글 분석 환경 기본 설치
