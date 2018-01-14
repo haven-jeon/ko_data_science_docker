@@ -7,7 +7,7 @@
 - R, Python 커널제공 
 - virtualenv 기반 Python 커널 제공
 - pip 인스톨시 --user 옵셥 가능 
-- TensorFlow-gpu, keras, MXNet 기본 설치(Nvidia 이미지 기반)
+- TensorFlow-gpu, keras, MXNet 기본 설치(Nvidia 이미지(cuda:8.0-cudnn6, ubuntu 16.04) 기반)
 - jupyter lab과 jupyter 중 선택사용
 - jupyter 노트북 블랙테마 기본 적용(bitstream vera sans mono 폰트 적용) 
 - jupyter extention 및 테마 기본설치
