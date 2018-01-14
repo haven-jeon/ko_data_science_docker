@@ -46,5 +46,6 @@
 - jupyter 
 ![](image/jupyter_basic.png)
 
-
+- rpy2
+![](image/rpy.png)
 
