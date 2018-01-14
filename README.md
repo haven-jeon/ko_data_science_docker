@@ -41,11 +41,10 @@
 
 
 - jupyter lab 
-!()[image/jupyter.png]
+![](image/jupyter.png)
 
 - jupyter 
-!()[image/jupyter_basic.png]
+![](image/jupyter_basic.png)
 
 
 
-# ko_data_science_docker

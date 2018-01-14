@@ -1,0 +1,9 @@
+{
+  "load_extensions": {
+    "notebook-extensions-master/calico-document-tools": true,
+    "notebook-extensions-master/calico-cell-tools": true,
+    "usability/codefolding/main": true
+  }
+}
+
+
