@@ -49,7 +49,7 @@ RUN apt-get update && \
   apt-get -y install libopenblas-dev curl && \
   add-apt-repository ppa:openjdk-r/ppa  && \
   apt-get update && \
-  apt-get -y install openjdk-7-jre && \
+  apt-get -y install openjdk-9-jdk-headless && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* && \
   curl https://bootstrap.pypa.io/get-pip.py | python$PY_VER
@@ -148,7 +148,8 @@ RUN fix-permissions $VENV_DIR && \
 #jupyter R 커널 설치
 RUN (echo "devtools::install_github('IRkernel/IRkernel')" && \
      echo "IRkernel::installspec()") \
-    | Rscript -e "source(file('stdin'))" 
+    | Rscript -e "source(file('stdin'))" && \
+    R CMD javareconf  
 
 #install konlpy mecab
 RUN curl -fSsL -O https://raw.githubusercontent.com/konlpy/konlpy/master/scripts/mecab.sh && \
