@@ -138,12 +138,12 @@ COPY matplotlibrc $HOME/.config/matplotlib/
 #주피터 테마설정 
 RUN jt -t chesterish -fs 95 -cellw 95% -T -tfs 11 -nfs 115 -f bitstream
 
-
-USER root
-
 #권한 체크 및 변경/ 오래 걸림 
 RUN fix-permissions $VENV_DIR && \
     fix-permissions $HOME/.jupyter/ 
+
+USER root
+
 
 #jupyter R 커널 설치
 RUN (echo "devtools::install_github('IRkernel/IRkernel')" && \
@@ -178,8 +178,7 @@ COPY start-notebook.sh  /usr/local/bin/
 COPY start.sh  /usr/local/bin/
 COPY start-singleuser.sh  /usr/local/bin/
 COPY jupyter_notebook_config.py  /etc/jupyter/
-RUN fix-permissions  /etc/jupyter/ && \
-    fix-permissions $HOME/.jupyter/
+RUN fix-permissions  /etc/jupyter/
 
 #time zone 
 ENV TZ=Asia/Seoul
