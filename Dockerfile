@@ -123,17 +123,14 @@ RUN pip$PY_VER install --upgrade pip && \
 
 
 #주피터랩  테마 복사/ 개인 편집 가능  
-RUN mkdir -p ~/.jupyter/nbconfig/ && \
-    mkdir -p $HOME/.jupyter/lab/user-settings/\@jupyterlab/apputils-extension
-COPY notebook.json $HOME/.jupyter/nbconfig/ 
-COPY themes.jupyterlab-settings $HOME/.jupyter/lab/user-settings/\@jupyterlab/apputils-extension/
 
-RUN mkdir -p $HOME/.jupyter/nbconfig/ && \
+RUN mkdir -p $HOME/.jupyter/lab/user-settings/\@jupyterlab/apputils-extension && \
+    mkdir -p $HOME/.jupyter/nbconfig/ && \
     mkdir -p $HOME/.config/matplotlib/
 
 COPY notebook.json $HOME/.jupyter/nbconfig/
 COPY matplotlibrc $HOME/.config/matplotlib/
-
+COPY themes.jupyterlab-settings $HOME/.jupyter/lab/user-settings/\@jupyterlab/apputils-extension/
 
 #주피터 테마설정 
 RUN jt -t chesterish -fs 95 -cellw 95% -T -tfs 11 -nfs 115 -f bitstream
@@ -178,7 +175,8 @@ COPY start-notebook.sh  /usr/local/bin/
 COPY start.sh  /usr/local/bin/
 COPY start-singleuser.sh  /usr/local/bin/
 COPY jupyter_notebook_config.py  /etc/jupyter/
-RUN fix-permissions  /etc/jupyter/
+RUN fix-permissions  /etc/jupyter/ && \
+    fix-permissions $HOME/.jupyter/ 
 
 #time zone 
 ENV TZ=Asia/Seoul
