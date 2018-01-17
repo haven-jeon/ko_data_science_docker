@@ -21,9 +21,11 @@
 
 ### 사용법
 
+- [nvidia docker](https://github.com/NVIDIA/nvidia-docker) 설치
+
 - 이미지 빌드 
 
-> docker build img:0.01 ./ 
+> docker build -t img:0.01 ./ 
 
 
 - 권한확인 
