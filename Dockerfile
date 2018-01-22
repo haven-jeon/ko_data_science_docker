@@ -141,6 +141,9 @@ RUN fix-permissions $VENV_DIR && \
 
 USER root
 
+RUN chown $NB_UID:$NB_GID $HOME/.jupyter/nbconfig/notebook.json && \
+    chown $NB_UID:$NB_GID $HOME/.config/matplotlib/matplotlibrc && \
+    chown $NB_UID:$NB_GID $HOME/.jupyter/lab/user-settings/\@jupyterlab/apputils-extension/themes.jupyterlab-settings
 
 #jupyter R 커널 설치
 RUN (echo "devtools::install_github('IRkernel/IRkernel')" && \
