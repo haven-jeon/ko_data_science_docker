@@ -186,8 +186,8 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 #ENV MXNET_CUDNN_AUTOTUNE_DEFAULT=1 \
 #    MXNET_ENGINE_TYPE=ThreadedEngine
 
-ENV CUDA_DEVICE_ORDER=PCI_BUS_ID \
-    CUDA_VISIBLE_DEVICES='1,0'
+#ENV CUDA_DEVICE_ORDER=PCI_BUS_ID \
+#    CUDA_VISIBLE_DEVICES='1,0'
 
 
 # Switch back to gogamza to avoid accidental container runs as root
