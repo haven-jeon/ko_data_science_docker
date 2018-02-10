@@ -1,20 +1,19 @@
+FROM nvidia/cuda:9.1-cudnn7-devel-ubuntu16.04
 
-#텐서플로 mxnet 동시 지원 도커 이미지로 시작 
-FROM nvidia/cuda:8.0-cudnn6-devel-ubuntu16.04
 
 LABEL maintainer="gogamza <madjakarta@gmail.com>"
 
 
 ARG PY_VER=3.6
-
+ARG DOCKER_VERSION=0.054
 
 USER root
 
 
 RUN apt-get update && apt-get -yq dist-upgrade && \
   apt-get install -yq --no-install-recommends \
-    wget git vim apt-transport-https \
-    bzip2 ssh \
+    wget  apt-utils   git vim apt-transport-https \
+    bzip2 ssh  graphviz \
     ca-certificates \
     sudo \
     locales \
@@ -110,12 +109,13 @@ RUN mkdir /home/$NB_USER/work && \
 
 #추후 python의 경우 GPU버전과 CPU버전의 이미지 분리가 필요함 
 RUN pip$PY_VER install --upgrade pip && \
-    pip$PY_VER install --no-cache-dir tqdm jpype1 konlpy pandas scipy numpy tensorflow-gpu \
-      keras jupyter jupyterhub jupyter_contrib_nbextensions \
+    pip$PY_VER install --no-cache-dir tqdm jpype1 konlpy pandas scipy numpy \
+      jupyter jupyterhub jupyter_contrib_nbextensions ipywidgets \
       jupyter_nbextensions_configurator jupyterlab jupyterthemes \
       sklearn matplotlib seaborn rpy2 gensim  opencv-python scikit-image  && \ 
-    pip$PY_VER install --no-cache-dir mxnet-cu80 --pre && \
+    pip$PY_VER install --no-cache-dir mxnet-cu91 --pre && \
     jupyter serverextension enable --py jupyterlab --sys-prefix && \
+    jupyter nbextension enable --py widgetsnbextension --sys-prefix --user  && \
     jupyter nbextensions_configurator enable --user && \
     jupyter nbextension install https://github.com/ipython-contrib/IPython-notebook-extensions/archive/master.zip --user && \
     jupyter nbextension install https://github.com/Calysto/notebook-extensions/archive/master.zip --user
