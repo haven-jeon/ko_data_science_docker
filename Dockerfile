@@ -1,11 +1,11 @@
-FROM nvidia/cuda:9.1-cudnn7-devel-ubuntu16.04
+FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
 
 
 LABEL maintainer="gogamza <madjakarta@gmail.com>"
 
 
 ARG PY_VER=3.6
-ARG DOCKER_VERSION=0.055
+ENV DOCKER_VERSION=0.060
 
 USER root
 
@@ -109,12 +109,12 @@ RUN mkdir /home/$NB_USER/work && \
 
 #추후 python의 경우 GPU버전과 CPU버전의 이미지 분리가 필요함 
 RUN pip$PY_VER install --upgrade pip && \
-    pip$PY_VER install --no-cache-dir python-crfsuite  tqdm jpype1 konlpy pandas scipy numpy \
+    pip$PY_VER install --no-cache-dir python-crfsuite pydot python-telegram-bot  tqdm jpype1 konlpy pandas scipy numpy \
       jupyter jupyterhub jupyter_contrib_nbextensions ipywidgets \
       jupyter_nbextensions_configurator jupyterlab jupyterthemes \
       sklearn matplotlib seaborn rpy2 gensim  opencv-python scikit-image  && \ 
     jupyter serverextension enable --py jupyterlab --sys-prefix && \
-    pip$PY_VER install --no-cache-dir mxnet-cu91 --pre && \
+    pip$PY_VER install --no-cache-dir mxnet-cu90 tensorflow-gpu keras && \
     jupyter nbextension enable --py widgetsnbextension --sys-prefix --user  && \
     jupyter nbextensions_configurator enable --user && \
     jupyter nbextension install https://github.com/ipython-contrib/IPython-notebook-extensions/archive/master.zip --user && \
