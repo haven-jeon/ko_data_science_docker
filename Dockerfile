@@ -1,18 +1,17 @@
 FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
 
-
 LABEL maintainer="gogamza <madjakarta@gmail.com>"
 
 
 ARG PY_VER=3.6
-ENV DOCKER_VERSION=0.060
+ENV DOCKER_VERSION=0.064
 
 USER root
 
 
 RUN apt-get update && apt-get -yq dist-upgrade && \
-  apt-get install -yq --no-install-recommends \
-    wget  apt-utils   git vim apt-transport-https \
+    apt-get install -yq --no-install-recommends \
+    wget  apt-utils  git vim apt-transport-https \
     bzip2 ssh  graphviz \
     ca-certificates \
     sudo \
@@ -21,6 +20,11 @@ RUN apt-get update && apt-get -yq dist-upgrade && \
     fonts-nanum-coding && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update && \
+  apt-get install -y --allow-downgrades --no-install-recommends libcudnn7=7.0.5.15-1+cuda9.0 libcudnn7-dev=7.0.5.15-1+cuda9.0 &&\
+    rm -rf /var/lib/apt/lists/*
+
 
 #로케일설정  
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
@@ -109,16 +113,18 @@ RUN mkdir /home/$NB_USER/work && \
 
 #추후 python의 경우 GPU버전과 CPU버전의 이미지 분리가 필요함 
 RUN pip$PY_VER install --upgrade pip && \
-    pip$PY_VER install --no-cache-dir python-crfsuite pydot python-telegram-bot  tqdm jpype1 konlpy pandas scipy numpy \
-      jupyter jupyterhub jupyter_contrib_nbextensions ipywidgets \
+    pip$PY_VER install --no-cache-dir h5py python-crfsuite pydot python-telegram-bot  tqdm jpype1 konlpy pandas scipy numpy \
+      jupyter jupyterhub jupyter_contrib_nbextensions ipywidgets flashtext \
       jupyter_nbextensions_configurator jupyterlab jupyterthemes \
       sklearn matplotlib seaborn rpy2 gensim  opencv-python scikit-image  && \ 
     jupyter serverextension enable --py jupyterlab --sys-prefix && \
-    pip$PY_VER install --no-cache-dir mxnet-cu90 tensorflow-gpu keras && \
+    pip$PY_VER install --no-cache-dir mxnet-cu90mkl tensorflow-gpu keras gluonnlp gluoncv tzlocal && \
     jupyter nbextension enable --py widgetsnbextension --sys-prefix --user  && \
     jupyter nbextensions_configurator enable --user && \
     jupyter nbextension install https://github.com/ipython-contrib/IPython-notebook-extensions/archive/master.zip --user && \
-    jupyter nbextension install https://github.com/Calysto/notebook-extensions/archive/master.zip --user
+    jupyter nbextension install https://github.com/Calysto/notebook-extensions/archive/master.zip --user && \
+    pip$PY_VER install http://download.pytorch.org/whl/cu90/torch-0.4.0-cp36-cp36m-linux_x86_64.whl && \
+    pip$PY_VER install torchvision
 
 
 
